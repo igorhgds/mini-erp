@@ -4,9 +4,9 @@ public class Parceiro {
 	private int codParc;
 	private String nomeParc;
 	private String tipPessoa;
-	private boolean ativo;
+	private String ativo;
 	
-	public Parceiro(Integer codParc, String nomeParc, String tipPessoa, boolean ativo) {
+	public Parceiro(int codParc, String nomeParc, String tipPessoa, String ativo) {
 		this.codParc = codParc;
 		this.nomeParc = nomeParc;
 		this.tipPessoa = tipPessoa;
@@ -15,7 +15,7 @@ public class Parceiro {
 	
 	public Parceiro() {}
 	
-	public Integer getCodParc() {return codParc;}
+	public int getCodParc() {return codParc;}
 
 	public String getNomeParc() {return nomeParc;}
 
@@ -25,9 +25,9 @@ public class Parceiro {
 
 	public void setTipPessoa(String tipPessoa) {this.tipPessoa = tipPessoa;}
 
-	public boolean getAtivo() {return ativo;}
+	public String getAtivo() {return ativo;}
 
-	public void setAtivo(boolean ativo) {this.ativo = ativo;}
+	public void setAtivo(String ativo) {this.ativo = ativo;}
 
 	@Override
 	public String toString() {

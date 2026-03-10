@@ -22,7 +22,7 @@ public class ParceiroDAO {
 			stmt.setInt(1, parceiro.getCodParc());
 			stmt.setString(2, parceiro.getNomeParc());
 			stmt.setString(3, parceiro.getTipPessoa());
-			stmt.setBoolean(4, parceiro.getAtivo());
+			stmt.setString(4, parceiro.getAtivo());
 			
 			stmt.executeUpdate();
 			System.out.println("Parceiro adicionado com sucesso!");
@@ -50,7 +50,7 @@ public class ParceiroDAO {
 					rs.getInt("CODPARC"),
 					rs.getString("NOMEPARC"),
 					rs.getString("TIPPESSOA"),
-					rs.getBoolean("ATIVO"));
+					rs.getString("ATIVO"));
 				}	
 			}					
 		} catch (SQLException e) {
