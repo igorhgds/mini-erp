@@ -17,14 +17,14 @@ public class PedidoDAO {
 			conn.setAutoCommit(false);
 			
 			StringBuilder queryCabecalho = new StringBuilder();
-			queryCabecalho.append("INSERT INTO TGFCAB (NUMNOTA, DTNEG, PARCEIRO, VLRNOTA, STATUS) ");
-			queryCabecalho.append(" VALUES (?, ?, ?, ?, ?) ");
+			queryCabecalho.append("INSERT INTO TGFCAB (NUNOTA, NUMNOTA, DTNEG, CODPARC, VLRNOTA, STATUS) ");
+			queryCabecalho.append(" VALUES (SEQ_TGFCAB.NEXTVAL, ?, ?, ?, ?, ?) ");
 			
 			StringBuilder queryItens = new StringBuilder();
-			queryItens.append("INSERT INTO TGFITE (NUNOTA, SEQUENCIA, PRODUTO, QTDNEG, VLRUNIT, VLRTOT) ");
+			queryItens.append("INSERT INTO TGFITE (NUNOTA, SEQUENCIA, CODPROD, QTDNEG, VLRUNIT, VLRTOT) ");
 			queryItens.append(" VALUES (?, ?, ?, ?, ?, ?) ");
 			
-			try (PreparedStatement cabecalho = conn.prepareStatement(queryCabecalho.toString(), Statement.RETURN_GENERATED_KEYS);
+			try (PreparedStatement cabecalho = conn.prepareStatement(queryCabecalho.toString(), new String[] {"NUNOTA"});
 					PreparedStatement itensPedido = conn.prepareStatement(queryItens.toString())){
 			
 				//salvar cabeçalho(TGFCAB)
@@ -68,5 +68,4 @@ public class PedidoDAO {
 			e.printStackTrace();
 		}
 	}
-
 }

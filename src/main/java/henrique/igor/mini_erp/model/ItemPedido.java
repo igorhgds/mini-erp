@@ -33,9 +33,10 @@ public class ItemPedido {
 	public Produto getProduto() {return produto;}
 	public void setProduto(Produto produto) {this.produto = produto;}
 	
-	public BigDecimal getVlrTot() {return vlrTot;}
-	
-	public void calcularTotal() {
-		this.vlrTot = this.qtdNeg.multiply(vlrUnit);
+	public BigDecimal getVlrTot() {
+	    if (qtdNeg == null || vlrUnit == null) {
+	        throw new IllegalStateException("Quantidade e valor unitário devem ser informados");
+	    }
+	    return qtdNeg.multiply(vlrUnit);
 	}
 }

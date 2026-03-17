@@ -12,10 +12,9 @@ public class Pedido {
 	private Parceiro parceiro;
 	private BigDecimal vlrNota;
 	private String status;
-	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
+	private List<ItemPedido> itens = new ArrayList<>();
 
-	public Pedido() {
-	}
+	public Pedido() {}
 
 	public int getNuNota() {return nuNota;}
 	public void setNuNota(int nuNota) {this.nuNota = nuNota;}

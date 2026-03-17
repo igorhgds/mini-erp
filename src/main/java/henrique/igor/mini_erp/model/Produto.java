@@ -7,7 +7,11 @@ public class Produto {
 	private String descrProd;
 	private BigDecimal vlrVenda;
 	
-	public Produto() {}
+	public Produto(int codProd, String descrProd, BigDecimal vlrVenda) {
+		this.codProd = codProd;
+		this.descrProd = descrProd;
+		this.vlrVenda = vlrVenda;
+	}
 	
 	public int getCodProd() {return this.codProd;}
 	

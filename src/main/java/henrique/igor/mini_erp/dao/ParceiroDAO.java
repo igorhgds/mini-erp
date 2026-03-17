@@ -13,16 +13,14 @@ public class ParceiroDAO {
 	public void salvar(Parceiro parceiro) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" INSERT INTO TGFPAR (CODPARC, NOMEPARC, TIPPESSOA, ATIVO) ");
-		sql.append(" VALUES (?, ?, ?, ?) ");
+		sql.append(" VALUES (SEQ_TGFCAB.NEXTVAL, ?, ?, ?) ");
 		
 		try (Connection conn = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql.toString())){
 			
-			//stmt.setObject(1, parceiro.getCodParc(), Types.INTEGER);
-			stmt.setInt(1, parceiro.getCodParc());
-			stmt.setString(2, parceiro.getNomeParc());
-			stmt.setString(3, parceiro.getTipPessoa());
-			stmt.setString(4, parceiro.getAtivo());
+			stmt.setString(1, parceiro.getNomeParc());
+			stmt.setString(2, parceiro.getTipPessoa());
+			stmt.setString(3, parceiro.getAtivo());
 			
 			stmt.executeUpdate();
 			System.out.println("Parceiro adicionado com sucesso!");
