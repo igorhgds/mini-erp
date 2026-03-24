@@ -16,6 +16,7 @@ public class Parceiro {
 	public Parceiro() {}
 	
 	public int getCodParc() {return codParc;}
+	public void setCodParc(int codParc) {this.codParc = codParc;}
 
 	public String getNomeParc() {return nomeParc;}
 

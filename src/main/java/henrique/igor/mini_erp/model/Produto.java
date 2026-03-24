@@ -13,7 +13,10 @@ public class Produto {
 		this.vlrVenda = vlrVenda;
 	}
 	
+	public Produto() {}
+	
 	public int getCodProd() {return this.codProd;}
+	public void setCodProd(int codProd) {this.codProd = codProd;}
 	
 	public String getDescProd() { return this.descrProd;}
 	

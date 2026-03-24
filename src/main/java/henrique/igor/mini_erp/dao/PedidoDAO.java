@@ -8,7 +8,9 @@ import java.sql.Statement;
 
 import henrique.igor.mini_erp.jdbc.ConnectionFactory;
 import henrique.igor.mini_erp.model.ItemPedido;
+import henrique.igor.mini_erp.model.Parceiro;
 import henrique.igor.mini_erp.model.Pedido;
+import henrique.igor.mini_erp.model.Produto;
 
 public class PedidoDAO {
 	
@@ -68,4 +70,62 @@ public class PedidoDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public Pedido buscarPorId(int nuNota) {
+		Pedido pedidoEncontrado = null;
+		
+		String sqlCabecalho = "SELECT * FROM TGFCAB WHERE NUNOTA = ?";
+		String sqlItens = "SELECT * FROM TGFITE WHERE NUNOTA = ?";
+			
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			try (PreparedStatement stmtCab = conn.prepareStatement(sqlCabecalho)){
+				stmtCab.setInt(1, nuNota);
+				
+				try (ResultSet rsCab = stmtCab.executeQuery()) {
+	                if (rsCab.next()) {
+	                    pedidoEncontrado = new Pedido();
+	                    
+	                    pedidoEncontrado.setNuNota(rsCab.getInt("NUNOTA"));
+	                    pedidoEncontrado.setNumNota(rsCab.getInt("NUMNOTA"));
+	                    pedidoEncontrado.setDtNeg(rsCab.getDate("DTNEG"));
+	                    pedidoEncontrado.setVlrNota(rsCab.getBigDecimal("VLRNOTA"));
+	                    pedidoEncontrado.setStatus(rsCab.getString("STATUS"));
+	                    
+	                    Parceiro parceiro = new Parceiro();
+	                    parceiro.setCodParc(rsCab.getInt("CODPARC")); 
+	                    pedidoEncontrado.setParceiro(parceiro);
+	                }
+				}
+			}
+			
+			if (pedidoEncontrado != null) {
+	            
+	            try (PreparedStatement stmtIte = conn.prepareStatement(sqlItens)) {
+	                stmtIte.setInt(1, nuNota);
+	                
+	                try (ResultSet rsIte = stmtIte.executeQuery()) {
+	                    while (rsIte.next()) {
+	                        ItemPedido item = new ItemPedido();
+	                        item.setSequencia(rsIte.getInt("SEQUENCIA"));
+	                        item.setQtdNeg(rsIte.getBigDecimal("QTDNEG"));
+	                        item.setVlrUnit(rsIte.getBigDecimal("VLRUNIT"));
+
+	                        Produto produto = new Produto();
+	                        produto.setCodProd(rsIte.getInt("CODPROD"));
+	                        item.setProduto(produto);
+
+	                        pedidoEncontrado.getItens().add(item);
+	                    }
+	                }
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        System.err.println("Erro ao buscar pedido: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return pedidoEncontrado; 
+	}
 }
+
