@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import henrique.igor.mini_erp.dao.PedidoDAO;
+import henrique.igor.mini_erp.dao.ProdutoDAO;
 import henrique.igor.mini_erp.exception.RegraNegocioException;
 import henrique.igor.mini_erp.model.ItemPedido;
 import henrique.igor.mini_erp.model.Parceiro;
@@ -18,27 +19,28 @@ public class CriaPedidoTest {
 		
 		Parceiro parceiro = new Parceiro(1, "Igor (Fornecedor Teste)", "F", "S");
 		
-		Produto produto = new Produto(1, "Monitor 21pol", new BigDecimal("498.00"));		
+		Produto produto = new Produto(2, "Teclado QWERTY", new BigDecimal("199.00"));		
 		
 		Pedido pedido = new Pedido();
 		pedido.setNumNota(1);
 		pedido.setDtNeg(java.sql.Date.valueOf(LocalDate.now()));
 		pedido.setParceiro(parceiro);
 		pedido.setStatus("S");
-		pedido.setVlrNota(new BigDecimal("498.00"));
 		
 		ItemPedido item1 = new ItemPedido();
 		item1.setSequencia(1);
 		item1.setProduto(produto);
-		item1.setQtdNeg(new BigDecimal("2"));
-		item1.setVlrUnit(new BigDecimal("249.00"));
+		item1.setQtdNeg(new BigDecimal("5"));
+		item1.setVlrUnit(produto.getVlrVenda());
 		
 		pedido.getItens().add(item1);
+		pedido.calcularValorNota();
 		
 		System.out.println("--- DADOS MONTADOS NA MEMÓRIA. ENVIANDO PARA O SERVICE... ---");
 		
-		PedidoDAO dao = new PedidoDAO();
-		PedidoService service = new PedidoService(dao);
+		PedidoDAO pedidoDao = new PedidoDAO();
+		ProdutoDAO produtoDao = new ProdutoDAO();
+		PedidoService service = new PedidoService(pedidoDao, produtoDao);
 		
 		try {
 			service.realizarPedido(pedido);

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import henrique.igor.mini_erp.jdbc.ConnectionFactory;
 import henrique.igor.mini_erp.model.ItemPedido;
@@ -14,12 +13,10 @@ import henrique.igor.mini_erp.model.Produto;
 
 public class PedidoDAO {
 	
-	public void salvar(Pedido pedido) {
-		try (Connection conn = ConnectionFactory.getInstance().getConnection()){
-			conn.setAutoCommit(false);
-			
+	public void salvar(Connection conn, Pedido pedido) throws SQLException {
+		
 			StringBuilder queryCabecalho = new StringBuilder();
-			queryCabecalho.append("INSERT INTO TGFCAB (NUNOTA, NUMNOTA, DTNEG, CODPARC, VLRNOTA, STATUS) ");
+			queryCabecalho.append("INSERT INTO TGFCAB (NUNOTA, NUMNOTA, DTNEG, CODPARC, VLRNOTA ,STATUS) ");
 			queryCabecalho.append(" VALUES (SEQ_TGFCAB.NEXTVAL, ?, ?, ?, ?, ?) ");
 			
 			StringBuilder queryItens = new StringBuilder();
@@ -56,20 +53,9 @@ public class PedidoDAO {
 					
 					itensPedido.addBatch();
 				}
-				
 				itensPedido.executeBatch();
-				
-				conn.commit();
-			
-				} catch (SQLException e) {
-					conn.rollback();
-					System.err.println("Transação falhou, efetuando rollback...");
-					throw new RuntimeException("Erro ao salvar", e);
 				}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+		} 
 	
 	public Pedido buscarPorId(int nuNota) {
 		Pedido pedidoEncontrado = null;
@@ -89,7 +75,7 @@ public class PedidoDAO {
 	                    pedidoEncontrado.setNuNota(rsCab.getInt("NUNOTA"));
 	                    pedidoEncontrado.setNumNota(rsCab.getInt("NUMNOTA"));
 	                    pedidoEncontrado.setDtNeg(rsCab.getDate("DTNEG"));
-	                    pedidoEncontrado.setVlrNota(rsCab.getBigDecimal("VLRNOTA"));
+	                    //pedidoEncontrado.setVlrNota(rsCab.getBigDecimal("VLRNOTA"));
 	                    pedidoEncontrado.setStatus(rsCab.getString("STATUS"));
 	                    
 	                    Parceiro parceiro = new Parceiro();

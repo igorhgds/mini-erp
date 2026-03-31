@@ -15,16 +15,6 @@ public class Pedido {
 	private List<ItemPedido> itens = new ArrayList<>();
 
 	public Pedido() {}
-	
-//	public Pedido(int nuNota, int numNota, Date dtNeg, Parceiro parceiro, BigDecimal vlrNota,
-//			String status) {
-//		this.numNota = nuNota;
-//		this.numNota = numNota;
-//		this.dtNeg = dtNeg;
-//		this.parceiro = parceiro;
-//		this.vlrNota = vlrNota;
-//		this.status = status;
-//	}
 
 	public int getNuNota() {return nuNota;}
 	public void setNuNota(int nuNota) {this.nuNota = nuNota;}
@@ -36,7 +26,6 @@ public class Pedido {
 	public void setDtNeg(Date dtNeg) {this.dtNeg = dtNeg;}
 
 	public BigDecimal getVlrNota() {return vlrNota;}
-
 	public void setVlrNota(BigDecimal vlrNota) {
 		if (vlrNota == null || vlrNota.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("O valor deve ser maior que zero");
@@ -54,4 +43,12 @@ public class Pedido {
 
 	public Parceiro getParceiro() {return parceiro;}
 	public void setParceiro(Parceiro parceiro) {this.parceiro = parceiro;}
+	
+	public void calcularValorNota() {
+	    BigDecimal total = BigDecimal.ZERO; 
+	    for (ItemPedido item : this.itens) {
+	        total = total.add(item.getVlrTot());
+	    }
+	    this.vlrNota = total;
+	}
 }

@@ -20,15 +20,15 @@ public class Produto {
 	
 	public String getDescProd() { return this.descrProd;}
 	
-	public BigDecimal getValor() {return this.vlrVenda;}
+	public BigDecimal getVlrVenda() {return this.vlrVenda;}
 	
 	public void setDescProd(String descProd) {this.descrProd = descProd;}
 	
-	public void setVlrVenda(BigDecimal valor) {
-		if(valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+	public void setVlrVenda(BigDecimal vlrVenda) {
+		if(vlrVenda == null || vlrVenda.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("O valor deve ser maior que zero");
 		}
-		this.vlrVenda = valor;
+		this.vlrVenda = vlrVenda;
 	}
 
 	@Override
