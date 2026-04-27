@@ -75,7 +75,7 @@ public class PedidoDAO {
 	                    pedidoEncontrado.setNuNota(rsCab.getInt("NUNOTA"));
 	                    pedidoEncontrado.setNumNota(rsCab.getInt("NUMNOTA"));
 	                    pedidoEncontrado.setDtNeg(rsCab.getDate("DTNEG"));
-	                    //pedidoEncontrado.setVlrNota(rsCab.getBigDecimal("VLRNOTA"));
+	                    pedidoEncontrado.setVlrNota(rsCab.getBigDecimal("VLRNOTA"));
 	                    pedidoEncontrado.setStatus(rsCab.getString("STATUS"));
 	                    
 	                    Parceiro parceiro = new Parceiro();

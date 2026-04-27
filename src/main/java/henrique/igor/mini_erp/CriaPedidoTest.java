@@ -19,7 +19,7 @@ public class CriaPedidoTest {
 		
 		Parceiro parceiro = new Parceiro(1, "Igor (Fornecedor Teste)", "F", "S");
 		
-		Produto produto = new Produto(2, "Teclado QWERTY", new BigDecimal("199.00"));		
+		Produto produto = new Produto(2, "Teclado QWERTY", new BigDecimal("199.00"), new BigDecimal("100"));		
 		
 		Pedido pedido = new Pedido();
 		pedido.setNumNota(1);

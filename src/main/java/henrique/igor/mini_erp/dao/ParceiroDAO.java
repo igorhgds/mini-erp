@@ -13,7 +13,7 @@ public class ParceiroDAO {
 	public void salvar(Parceiro parceiro) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" INSERT INTO TGFPAR (CODPARC, NOMEPARC, TIPPESSOA, ATIVO) ");
-		sql.append(" VALUES (SEQ_TGFCAB.NEXTVAL, ?, ?, ?) ");
+		sql.append(" VALUES (SEQ_TGFPAR.NEXTVAL, ?, ?, ?) ");
 		
 		try (Connection conn = ConnectionFactory.getInstance().getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql.toString())){
