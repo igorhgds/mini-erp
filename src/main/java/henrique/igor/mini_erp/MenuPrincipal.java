@@ -33,6 +33,8 @@ public class MenuPrincipal {
             System.out.println("[2] - Cadastrar Novo Produto");
             System.out.println("[3] - Lançar um Pedido de Venda");
             System.out.println("[4] - Consultar Pedido por ID");
+            System.out.println("[5] - Consultar Parceiro por ID");
+            System.out.println("[6] - Consultar Produto por ID");
             System.out.println("[0] - Sair do Sistema");
             System.out.print("Escolha uma opção: ");
             
@@ -58,7 +60,6 @@ public class MenuPrincipal {
                 novoParceiro.setAtivo(ativo);
                 
                 parceiroDao.salvar(novoParceiro);
-                
                 break;
                 
             case 2: //CADASTRO DE PRODUTO
@@ -171,8 +172,7 @@ public class MenuPrincipal {
                     System.out.println(">>> SUCESSO! Pedido faturado. NUNOTA Gerado: " + novoPedido.getNuNota());
                 } catch (Exception e) {
                     System.err.println("\n>>> FALHA NO FATURAMENTO: " + e.getMessage());
-                }
-                break;
+                } break;
                 
             case 4: //CONSULTA DE PEDIDO
                 System.out.println("\n--- CONSULTA DE PEDIDO ---");
@@ -199,11 +199,44 @@ public class MenuPrincipal {
                     }
                 } else {
                     System.out.println("Pedido não encontrado no banco de dados.");
-                }
+                } break;
                 
+            case 5: //CONSULTA PARCEIRO
+            	System.out.println("\n--- CONSULTA PARCEIRO ---");
+            	System.out.println("Digite o ID (CODPARC) do Parceiro");
+            	int codparc = scanner.nextInt();
+            	scanner.nextLine();
+            	
+            	Parceiro buscaParceiro = parceiroDao.buscarParceiro(codparc);
+            	
+            	if(buscaParceiro != null) {
+            		System.out.println("\n=== PARCEIRO ENCONTRADO ===");
+            		System.out.println("ID (CODPARC): " + buscaParceiro.getCodParc());
+            		System.out.println("Parceiro: " + buscaParceiro.getNomeParc());
+            		System.out.println("Tipo Pessoa: " + buscaParceiro.getTipPessoa());
+            		System.out.println("Ativo: " + buscaParceiro.getAtivo()); 		
+            	}else {
+                    System.out.println("Pedido não encontrado no banco de dados.");
+                } break;
                 
-                break;
-                
+            case 6: //CONSULTA PRODUTO
+            	System.out.println("\n--- CONSULTA PRODUTO ---");
+            	System.out.println("Digite o ID (CODPROD) do Produto");
+            	int codprod = scanner.nextInt();
+            	scanner.nextLine();
+            	
+            	Produto buscaProduto = produtoDao.buscarProduto(codprod);
+            	
+            	if(buscaProduto != null) {
+            		System.out.println("\n=== PARCEIRO ENCONTRADO ===");
+            		System.out.println("ID (CODPROD): " + buscaProduto.getCodProd());
+            		System.out.println("Descrição: " + buscaProduto.getDescrProd());
+            		System.out.println("Vlr. Venda: " + buscaProduto.getVlrVenda());
+            		System.out.println("Estoque: " + buscaProduto.getEstoque()); 		
+            	}else {
+                    System.out.println("Pedido não encontrado no banco de dados.");
+                } break;
+            	
             case 0: //SAIR DO PROGRAMA
                 System.out.println("\nDesligando os motores... Até logo!");
                 break;
